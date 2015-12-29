@@ -1,0 +1,47 @@
+.v-app {
+    margin:  0;
+    padding: 0;
+}
+
+.v-app .v-hidden {
+    display: none;
+    visibility: hidden;
+}
+
+.v-app h1 {
+    font-size: 2em;
+}
+
+.v-app h2 {
+    font-size: 1.5em;
+}
+
+.v-size-large {
+    font-size: xx-large;
+}
+
+.v-size-larger {
+    font-size: large;
+}
+
+.v-size-normal {
+    font-size: medium;
+}
+
+.v-size-smaller {
+    font-size: small;
+}
+
+.v-size-small {
+    font-size: xx-small;
+}
+
+.v-alert-box {
+    padding:       0.25em;
+    border-bottom: 1px solid #CC3333;
+}
+
+.v-error {
+    color:      #CC3333;
+    background: #FFECEC;
+}
