@@ -3,16 +3,36 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Vanilla</title>
-    <link rel="stylesheet" href="main.css"/>
+    <link rel="stylesheet" href="style/main.css"/>
+    <link rel="stylesheet" href="style/theme.css"/>
 </head>
 <body class="v-app">
 
 <div class="v-hidden" data-v-alertbox>
     <strong> ERROR: </strong>
-    <span data-v-message> unforseen problem </span>
+    <span data-v-message> unforseen problem</span>
 </div>
 
-<section class="v-content" data-v-content>
+<header class="v-panel v-col-12 v-alert-box v-info">
+    <p>
+        <b>NB:</b>
+        This site contains bleeding edge
+        <a target="_blank" href="https://en.wikipedia.org/wiki/ECMAScript">ES2015</a>
+        technology (your browsers' programming language)
+        and
+        <del>might</del>
+        most probably will
+        not work, fully or at all,
+        unleess you have the newest desktop browser.
+    </p>
+    <p>And by the newest I mean Chrome and/or Firefox
+        because I didn't have much time to test on other browsers.
+        <a target="_blank" href="https://github.com/azder/vanilla">Here</a>
+        is the repo, you can check for your self.
+    </p>
+</header>
+
+<section class="v-content v-panel v-col-12 v-left" data-v-content>
 
     <header>
         <h1>I don't like vanilla!</h1>
@@ -27,15 +47,39 @@
 
 </section>
 
-<section class="v-size-normal" data-v-copy></section>
-<section class="v-size-smaller" data-v-copy></section>
-<section class="v-size-small" data-v-copy></section>
+<div class=" v-right  v-col-4">
+    <aside>
+        <h1>And here be more copies...</h1>
+        <p>...but from templates embedded in this very same document.</p>
+    </aside>
+    <aside class="v-aside v-panel v-bordered " data-v-copy="template01">
+    </aside>
+    <aside class="v-aside v-panel v-bordered " data-v-copy="template01">
+    </aside>
+</div>
+
+<div class="v-left v-col-6 v-panel">
+    <section>
+        <h1>Here be copies</h1>
+        <p>Here we have three different sized sections,
+            all containing the copy of this document's post,
+            but taken from an AJAX call.
+        </p></section>
+    <section class="v-panel v-bordered v-left v-col-12 v-size-normal" data-v-copy="doc"></section>
+    <section class="v-panel v-bordered v-left v-col-8 v-size-smaller" data-v-copy="doc"></section>
+    <section class="v-panel v-bordered v-left v-col-4 v-size-small" data-v-copy="doc"></section>
+</div>
 
 <script src="lib/dollars.js"></script>
 <script src="lib/functionals.js"></script>
 <script src="lib/modules.js"></script>
 
-<script src="app.js"></script>
 
+<script type="application/prs.vanilla" id="template01">
+    <h1>${header}</h1>
+    <p>${message}</p>
+</script>
+
+<script src="app.js"></script>
 </body>
 </html>

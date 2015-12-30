@@ -1,0 +1,25 @@
+.v-app {
+    background: #FEFEFE;
+}
+
+.v-app .v-alert-box.v-error {
+    border-bottom-color: #993333;
+}
+
+.v-app .v-error {
+    color:      #993333;
+    background: #FCECEC;
+}
+
+.v-app .v-alert-box.v-info {
+    border-bottom-color: #333399;
+}
+
+.v-app .v-info {
+    color:      #333399;
+    background: #ECECFC;
+}
+
+.v-app .v-bordered {
+    border-color: #999999;
+}

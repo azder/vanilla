@@ -1,0 +1,79 @@
+.v-app {
+    margin:  0;
+    padding: 0;
+}
+
+.v-app .v-hidden {
+    display:    none;
+    visibility: hidden;
+}
+
+.v-app h1 {
+    font-size: 2em;
+}
+
+.v-app h2 {
+    font-size: 1.5em;
+}
+
+.v-app .v-size-large {
+    font-size: xx-large;
+}
+
+.v-app .v-size-larger {
+    font-size: large;
+}
+
+.v-app .v-size-normal {
+    font-size: medium;
+}
+
+.v-app .v-size-smaller {
+    font-size: small;
+}
+
+.v-app .v-size-small {
+    font-size: xx-small;
+}
+
+.v-app .v-alert-box {
+    padding:       0.25em;
+    border-bottom: 1px solid gray;
+}
+
+.v-app .v-right {
+    float: right;
+}
+
+.v-app .v-left {
+    float: left;
+}
+
+.v-app .v-col-12 {
+    width: 98%;
+}
+
+.v-app .v-col-8 {
+    width: 66%;
+}
+
+.v-app .v-col-6 {
+    width: 50%;
+}
+
+.v-app .v-col-4 {
+    width: 33%;
+}
+
+.v-app .v-panel {
+    padding:       8px;
+    margin-bottom: 8px;
+}
+
+.v-app .v-bordered {
+    border-radius: 8px;
+    border:        1px solid gray;
+}
+
+.v-app .v-strike {
+}

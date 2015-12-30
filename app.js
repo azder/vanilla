@@ -6,63 +6,79 @@
 
     'use strict'; //ALWAYS
 
-    $.configure(
-        // last chance to change stuff or just put an invalid url and see the result
-        $.assign('urlbase', '')
-    ).run($ =>
+    // last chance to change stuff or just put an invalid url and see the result
+    $.configure($.assign('urlbase', ''))
 
-        // OK, running...
+     // OK, running...
+     .run($ =>
+         // the html document from urlbase
+         $.fetch($.conf.urlbase)
+          .then(event =>
+              // do the inserts
+              $.liftM2(
+                  // clones the fragment then appends, so the fragment is not lost
+                  (fragment, node) => $.appendTo($.cloneNode(fragment), node),
 
+                  // generate the fragment
+                  $.maybe(event)
+                   // will transform an ajax Event into DocumentFragment
+                   .map($.logx(2, 'response received'))
+                   .map($.prop('target'))
+                   .map($.prop('response'))
+                   .map($.frag)
+                   .map($.logx(2, 'fragment created'))
+                   // and extract the wanted node(s)
+                   .remap($.find('[data-v-content] > *')),
 
-        $.fetch($.conf.urlbase)
-         .then(event =>
-             // do the inserts
-             $.liftM2(
-                 // clones the fragment then appends, so the fragment is not lost
-                 (fragment, node) => $.appendTo($.cloneNode(fragment), node),
+                  // find the insertion points
+                  $.elems('.v-app [data-v-copy=doc]')
+              )
+          )
+          .catch(event =>
 
-                 // generate the fragment
-                 $.maybe(event)
-                  .map(
-                      // will transform an ajax Event into DocumentFragment
-                      $.lcomp(
-                          $.logx(2, 'response received'),
-                          $.prop('target'),
-                          $.prop('response'),
-                          $.frag,
-                          $.logx(2, 'fragment created')
-                      )
-                  )
-                  .remap($.find('[data-v-content] > *')),
+              $.liftM2(
+                  //display the message
+                  $.put('textContent'),
 
-                 // find the insertion points
-                 $.elems('.v-app [data-v-copy]')
-             )
-         )
-         .catch(event =>
+                  // show the alert box and find the message element
+                  $.elems('[data-v-alertbox]')
+                   .map($.lcomp(
+                       $.assign('className', 'v-alert-box v-size-large v-error'),
+                       $.logx(2, 'showing alert box'),
+                       $.find('[data-v-message]'),
+                       Array.of
+                   ))
+                   .flatten(),
 
-             $.liftM2(
-                 //display the message
-                 $.put('textContent'),
+                  // find the error message
+                  $.maybe(event)
+                   .map($.log)
+                   .map($.prop('target'))
+                   .map($.prop('statusText'))
+                   .map($.log)
+              )
+          )
+     )
+     // now let's try templates
+     .run($ =>
+         $.liftM2(
+             // generate the template
+             (data, template) => template(data),
 
-                 // show the alert box and find the message element
-                 $.elems('[data-v-alertbox]')
-                  .map($.lcomp(
-                      $.assign('className', 'v-alert-box v-size-large v-error'),
-                      $.logx(2, 'showing alert box'),
-                      $.find('[data-v-message]'),
-                      Array.of
-                  ))
-                  .flatten(),
+             // provides the data for the template
+             $.maybe({
+                 header:  'Success',
+                 message: 'This little snippet over here is actually from a template.'
+             }),
 
-                 // find the error message
-                 $.maybe(event)
-                  .map($.log)
-                  .map($.prop('target'))
-                  .map($.prop('statusText'))
-                  .map($.log)
-             )
-         )
-    )
+             // finds the template and compiles it
+             $.elems('#template01')
+              .map($.lcomp($.prop('innerHTML'), Array.of))
+              .map($.lcomp($.compile, Array.of))
+          )
+          .map($.map($.map(html =>
+              $.elems('[data-v-copy=template01]').map($.assign('innerHTML', html))
+          )))
+     )
 
 })($);
